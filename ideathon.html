@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideathon | The Electronix Club</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family: Arial, sans-serif;
+background:#0f172a;
+color:white;
+overflow-x:hidden;
+}
+
+/* background animation */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* sections */
+section{
+padding:60px 10%;
+max-width:1200px;
+margin:auto;
+}
+
+h1,h2{
+color:#38bdf8;
+margin-bottom:15px;
+}
+
+/* hero */
+.hero{
+text-align:center;
+padding:100px 10%;
+}
+
+.hero-box{
+background:#020617;
+padding:50px 40px;
+border-radius:16px;
+position:relative;
+box-shadow:
+0 0 40px rgba(56,189,248,0.2),
+0 0 80px rgba(56,189,248,0.15);
+}
+
+/* glow */
+.hero-box::before{
+content:"";
+position:absolute;
+top:-40px;
+left:-40px;
+right:-40px;
+bottom:-40px;
+background:radial-gradient(circle,#38bdf8 0%,transparent 70%);
+opacity:0.12;
+z-index:-1;
+}
+
+.hero h1{
+font-size:48px;
+margin-bottom:15px;
+}
+
+.hero p{
+margin-bottom:25px;
+line-height:1.6;
+}
+
+/* button */
+.button{
+background:#38bdf8;
+padding:16px 32px;
+border-radius:8px;
+text-decoration:none;
+color:black;
+font-weight:bold;
+display:inline-block;
+transition:0.3s;
+text-align:center;
+cursor:pointer;
+}
+
+.button .price{
+display:block;
+font-size:14px;
+margin-top:3px;
+font-weight:600;
+}
+
+.button:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px #38bdf8;
+}
+
+/* cards */
+.card-container{
+display:flex;
+gap:30px;
+flex-wrap:wrap;
+margin-top:30px;
+}
+
+.card{
+background:#1e293b;
+padding:25px;
+border-radius:12px;
+flex:1;
+min-width:220px;
+box-shadow:0 0 20px rgba(56,189,248,0.08);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 0 30px rgba(56,189,248,0.25);
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+/* lists */
+ul{
+margin-top:15px;
+line-height:1.8;
+padding-left:18px;
+}
+
+/* responsive */
+@media (max-width:768px){
+.hero{
+padding:80px 8%;
+}
+.hero-box{
+padding:35px 25px;
+}
+.hero h1{
+font-size:34px;
+}
+.button{
+padding:14px 28px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-box">
+    <h1>Ideathon</h1>
+    <p>
+      Have a blueprint that can redefine the tech landscape? <b>THE ELECTRONIX CLUB (TEC)</b> invites you to the <b>Ideathon</b> — a battle of brains focused on theoretical innovation and system architecture.
+    </p>
+    <a class="button" href="https://forms.gle/zHn1Ngt6ZDVEKmUq9" target="_blank">
+      Register Now
+      <span class="price">₹150 / Team (Max 3 Members)</span>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section>
+<h2>About Ideathon</h2>
+<p>
+No hardware? No problem! We’re looking for high-level solutions in <b>VLSI</b>, <b>Smart Communication</b>, and <b>Robotics</b> that tackle real-world bottlenecks through logic and design.
+</p>
+<p>
+This event emphasizes <b>problem identification, feasibility, and the technical “X-Factor”</b>. Teams will present their ideas to judges who’ll evaluate based on creativity, clarity, and impact.
+</p>
+</section>
+
+<!-- PRIZE -->
+<section>
+<h2>Prize</h2>
+<div class="card-container">
+  <div class="card">
+    <h3>🏆 Winner</h3>
+    <p>₹2,500</p>
+  </div>
+</div>
+<p style="margin-top:20px;">
+The top idea will be selected based on creativity, feasibility, and presentation clarity.
+</p>
+</section>
+
+<!-- DETAILS -->
+<section>
+<h2>Event Details</h2>
+<ul>
+<li><b>Team Size:</b> 2–3 Members (Only Team Leads should register)</li>
+<li><b>Entry Fee:</b> ₹149 per team</li>
+<li><b>Venue:</b> SNIST College</li>
+<li><b>Date:</b> 11 March 2026</li>
+<li><b>Submission:</b> Abstract or pitch deck required during the event</li>
+</ul>
+</section>
+
+<!-- REWARDS -->
+<section>
+<h2>Recognition & Rewards</h2>
+<ul>
+<li>Certificate of participation from <b>The Electronix Club (TEC)</b>.</li>
+<li>Recognition for creativity, clarity, and technical depth.</li>
+<li>Opportunity for mentorship to develop your idea further.</li>
+<li>Chance to transform your concept into a future project or startup.</li>
+</ul>
+</section>
+
+<!-- CONTACT -->
+<section>
+<h2>Contact</h2>
+<ul>
+<li><b>Rithwik:</b> 9392676311</li>
+</ul>
+<p style="margin-top:15px;">
+Innovation starts with an idea. Pitch yours to the experts.
+</p>
+</section>
+
+<script>
+/* background animation */
+const canvas=document.getElementById("bg")
+const ctx=canvas.getContext("2d")
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+let particles=[]
+let particleCount = window.innerWidth < 768 ? 35 : 80
+
+for(let i=0;i<particleCount;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+vx:(Math.random()-0.5)*0.5,
+vy:(Math.random()-0.5)*0.5
+})
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height)
+particles.forEach(p=>{
+p.x+=p.vx
+p.y+=p.vy
+if(p.x<0||p.x>canvas.width)p.vx*=-1
+if(p.y<0||p.y>canvas.height)p.vy*=-1
+ctx.beginPath()
+ctx.arc(p.x,p.y,2,0,Math.PI*2)
+ctx.fillStyle="#38bdf8"
+ctx.fill()
+particles.forEach(p2=>{
+let dist=Math.hypot(p.x-p2.x,p.y-p2.y)
+if(dist<120){
+ctx.beginPath()
+ctx.moveTo(p.x,p.y)
+ctx.lineTo(p2.x,p2.y)
+ctx.strokeStyle="rgba(56,189,248,0.15)"
+ctx.stroke()
+}
+})
+})
+requestAnimationFrame(animate)
+}
+animate()
+</script>
+
+<script>
+/* Fix for double back-click issue */
+if (window.history && window.history.replaceState) {
+  window.history.replaceState(null, null, window.location.href);
+}
+</script>
+
+</body>
+</html>
